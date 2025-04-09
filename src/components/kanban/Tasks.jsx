@@ -12,7 +12,7 @@ const Task = ({ task: { id, taskName }, taskColumnName, index }) => (
         {...provided.dragHandleProps}
         className={classNames(
           " group my-2 flex  w-5/6 flex-row items-center justify-between rounded bg-gray-50 p-2 shadow",
-          taskColumnName === "done" && "line-through"
+          { "line-through": taskColumnName === "done" }
         )}
       >
         <Typography style="body1">{taskName}</Typography>

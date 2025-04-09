@@ -12,7 +12,7 @@ const Columns = ({ taskColumnName, tasks }) => {
 
   return (
     <div className="kanban-column-height flex w-80  flex-col gap-6 rounded-md border-2 border-black bg-gray-100 px-8 pb-2 pt-8">
-      <Typography style="h2" weight="semibold">
+      <Typography style="h2" weight="bold">
         <Trans i18nKey={`kanban.${taskColumnName}`} />
       </Typography>
       <Droppable droppableId={taskColumnName} key={taskColumnName}>
@@ -26,12 +26,13 @@ const Columns = ({ taskColumnName, tasks }) => {
             )}
           >
             {isEmpty(tasks) ? (
-              <NoData title="no tasks are there " />
+              <NoData title={t("kanban.noTasksPresent")} />
             ) : (
               tasks.map((task, index) => (
                 <Tasks key={task.id} {...{ task, taskColumnName, index }} />
               ))
             )}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

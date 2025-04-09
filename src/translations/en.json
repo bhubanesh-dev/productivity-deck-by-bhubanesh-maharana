@@ -8,6 +8,7 @@
     "todo": "To-do",
     "inProgress": "In progress",
     "done": "Done",
-    "addNewTasks": "Add new task"
+    "addNewTasks": "Add new task",
+    "noTasksPresent": "No tasks are available."
   }
 }

@@ -8,14 +8,14 @@ import useKanbanTasksStore from "./store/useKanbanTasksStore";
 const Kanban = () => {
   const { t } = useTranslation();
 
-  const { tasks } = useKanbanTasksStore.pick();
+  const { tasks, onDragEnd } = useKanbanTasksStore.pick();
 
   return (
     <main className="w-full px-32 py-8">
       <Typography style="h1" weight="bold">
         {t("kanban.heading")}
       </Typography>
-      <DragDropContext>
+      <DragDropContext onDragEnd={onDragEnd}>
         <section className="mb-2 mt-8 flex flex-row items-center justify-center gap-5">
           {Object.entries(tasks).map(([taskColumnName, tasks]) => (
             <Columns

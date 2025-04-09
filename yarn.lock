@@ -1953,7 +1953,7 @@
     "@bigbinary/neeto-commons-frontend" "^2.0.63"
     ramda "^0.29.0"
 
-"@bigbinary/neeto-cist@1.0.6":
+"@bigbinary/neeto-cist@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@bigbinary/neeto-cist/-/neeto-cist-1.0.6.tgz#cf9e34910a765e6cb946503c0bf7ab1632ef8e17"
   integrity sha512-UebvniTSUyNYOIZMiNSDpV4HqHtwvYfaUaE3+C4ZBSY44csUCRgwOeD0njU3rQpE5eAL+e6KYsV9moRz4/uc0g==

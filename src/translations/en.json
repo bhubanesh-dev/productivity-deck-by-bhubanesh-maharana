@@ -9,6 +9,10 @@
     "inProgress": "In progress",
     "done": "Done",
     "addNewTasks": "Add new task",
-    "noTasksPresent": "No tasks are available."
+    "noTasksPresent": "No tasks are available.",
+    "alertCancelButtonLabel": "Cancel",
+    "alertSubmitButtonLabel": "Delete task",
+    "alertTitle": "Are you sure you want to delete this task?",
+    "alertMessage": "This action cannot be undone."
   }
 }

@@ -1,4 +1,14 @@
-import { remove, insert, uniqBy, path, assocPath, clone } from "ramda";
+import {
+  remove,
+  insert,
+  uniqBy,
+  path,
+  assocPath,
+  clone,
+  reject,
+  propEq,
+  assoc,
+} from "ramda";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -59,6 +69,13 @@ const useKanbanTasksStore = create(
             [destination.droppableId]: updatedDest,
           },
         });
+      },
+      deleteTasks: (taskColumnName, id) => {
+        const tasks = get().tasks;
+        const updatedColumn = reject(propEq(id, "id"), tasks[taskColumnName]);
+        const updatedTasks = assoc(taskColumnName, updatedColumn, tasks);
+
+        set({ tasks: updatedTasks });
       },
     }),
     {

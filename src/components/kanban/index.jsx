@@ -11,7 +11,7 @@ const Kanban = () => {
   const { tasks, onDragEnd } = useKanbanTasksStore.pick();
 
   return (
-    <main className="w-full px-32 py-8">
+    <main className="container-width w-full px-32 py-8">
       <Typography style="h1" weight="bold">
         {t("kanban.heading")}
       </Typography>

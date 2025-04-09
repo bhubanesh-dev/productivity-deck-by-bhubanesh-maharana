@@ -1,3 +1,6 @@
+.container-width {
+  width: 96vw;
+}
 .kanban-column-height {
   height: 80dvh;
 }

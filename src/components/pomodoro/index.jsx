@@ -1,5 +1,15 @@
-import React from "react";
+import { Typography } from "neetoui";
+import { withT } from "utils/withT";
 
-const Pomodoro = () => <div>pomodoro</div>;
+import Container from "./Container";
 
-export default Pomodoro;
+const Pomodoro = ({ t }) => (
+  <main className="container-width h-screen px-16 py-8">
+    <Typography style="h1" weight="bold">
+      {t("pomodoro.heading")}
+    </Typography>
+    <Container />
+  </main>
+);
+
+export default withT(Pomodoro);

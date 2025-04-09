@@ -14,5 +14,14 @@
     "alertSubmitButtonLabel": "Delete task",
     "alertTitle": "Are you sure you want to delete this task?",
     "alertMessage": "This action cannot be undone."
+  },
+  "pomodoro": {
+    "heading": "Pomodoro mode",
+    "pomodoro": "Pomodoro",
+    "shortBreak": "Short break",
+    "longBreak": "Long break",
+    "start": "Start",
+    "pause": "Pause",
+    "reset": "Reset"
   }
 }

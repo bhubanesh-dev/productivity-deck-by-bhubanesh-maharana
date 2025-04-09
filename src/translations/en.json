@@ -2,5 +2,11 @@
   "pageNotFound": {
     "title": "The page you're looking for can't be found",
     "label": "Back to home"
+  },
+  "kanban": {
+    "heading": "Kanban mode",
+    "todo": "To-do",
+    "inProgress": "In progress",
+    "done": "Done"
   }
 }

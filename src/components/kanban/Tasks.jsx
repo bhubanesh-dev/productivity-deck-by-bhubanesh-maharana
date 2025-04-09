@@ -24,11 +24,13 @@ const Task = ({ task: { id, taskName }, taskColumnName, index }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className={classNames(
-              " group my-2 flex  w-5/6 flex-row items-center justify-between rounded bg-gray-50 p-2 shadow",
+              " group my-2 flex w-80 flex-row items-center justify-between rounded bg-gray-50 p-2 shadow",
               { "line-through": taskColumnName === "done" }
             )}
           >
-            <Typography style="body1">{taskName}</Typography>
+            <Typography className=" truncate" style="body1">
+              {taskName}
+            </Typography>
             <Button
               className="text-red-500  opacity-0 group-hover:opacity-100"
               icon={Delete}

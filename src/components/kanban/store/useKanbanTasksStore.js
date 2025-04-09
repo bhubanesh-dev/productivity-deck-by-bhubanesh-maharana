@@ -8,6 +8,7 @@ import {
   reject,
   propEq,
   assoc,
+  append,
 } from "ramda";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -69,6 +70,18 @@ const useKanbanTasksStore = create(
             [destination.droppableId]: updatedDest,
           },
         });
+      },
+      addNewTasks: (taskColumnName, taskInput) => {
+        const tasks = get().tasks;
+        const newTask = {
+          id: Date.now(),
+          taskName: taskInput,
+        };
+
+        const updatedColumnTasks = append(newTask, tasks[taskColumnName]);
+        const updatedTasks = assoc(taskColumnName, updatedColumnTasks, tasks);
+
+        set({ tasks: updatedTasks });
       },
       deleteTasks: (taskColumnName, id) => {
         const tasks = get().tasks;

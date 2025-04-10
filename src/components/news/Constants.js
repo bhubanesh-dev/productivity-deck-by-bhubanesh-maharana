@@ -1,5 +1,5 @@
 export const DEFAULT_PAGE_INDEX = 1;
-export const DEFAULT_PAGE_SIZE = 10;
+export const DEFAULT_PAGE_SIZE = 20;
 
 export const SOURCE_LIST = [
   { value: "bbc-news", label: "BBC News" },

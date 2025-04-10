@@ -28,11 +28,17 @@
     "heading": "News mode",
     "noNewsFound": "No news is available in this feed.",
     "searchArticle": "Search articles",
-    "knowMore": "know more"
+    "knowMore": "know more",
+    "changeNewsSource": "Change news source",
+    "newsSource": "News source"
   },
   "error": {
     "noInternetConnection": "No internet connection",
     "networkError": "Network error",
     "somethingWentWrong": "Something went wrong."
+  },
+  "buttonLabel": {
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

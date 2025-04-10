@@ -23,5 +23,10 @@
     "start": "Start",
     "pause": "Pause",
     "reset": "Reset"
+  },
+  "news": {
+    "heading": "News mode",
+    "noNewsFound": "No news is available in this feed.",
+    "searchArticle": "Search articles"
   }
 }

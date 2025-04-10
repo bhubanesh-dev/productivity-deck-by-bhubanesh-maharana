@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 import useFuncDebounce from "hooks/useFuncDebounce";
-import { Filter, Search } from "neetoicons";
+import { Search } from "neetoicons";
 import { Input, Typography } from "neetoui";
 import { withT } from "utils/withT";
 
+import FilterPane from "./FilterPane";
 import SourcesSelector from "./SourcesSelector";
 
 const Header = ({ sourcesFilter, queryFilter, updateQueryParams, t }) => {
@@ -20,7 +21,7 @@ const Header = ({ sourcesFilter, queryFilter, updateQueryParams, t }) => {
           {t("news.heading")}
         </Typography>
         <SourcesSelector {...{ sourcesFilter, updateQueryParams }} />
-        <Filter />
+        <FilterPane {...{ queryFilter, updateQueryParams }} />
       </div>
       <div className="w-56">
         <Input

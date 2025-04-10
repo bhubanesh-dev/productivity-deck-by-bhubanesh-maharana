@@ -2,8 +2,11 @@ import React from "react";
 
 import initializeAxios from "apis/axios";
 import ReactDOM from "react-dom/client";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import queryClient from "utils/queryClient";
 
 import "./common/i18n";
 //i18n should load before App initialization. Hence, disabling import/order rule.
@@ -17,10 +20,13 @@ initializeAxios();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ToastContainer />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      <ToastContainer />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

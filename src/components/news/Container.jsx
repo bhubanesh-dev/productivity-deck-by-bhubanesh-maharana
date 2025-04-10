@@ -1,29 +1,12 @@
-import { useEffect, useState } from "react";
-
-import newsApi from "apis/news";
 import { NoData, Pagination } from "neetoui";
 import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 
-import {
-  DEFAULT_PAGE_INDEX,
-  DEFAULT_PAGE_SIZE,
-  TOTAL_RESULTS,
-} from "./Constants";
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "./Constants";
 import NewsItems from "./Items";
 
-const NewsContainer = () => {
+const NewsContainer = ({ articles, totalResults }) => {
   const { t } = useTranslation();
-  const [articles, setArticles] = useState([]);
-
-  useEffect(() => {
-    const fetchNews = async () => {
-      const newsResponse = await newsApi.fetch({ sources: "bbc-news" });
-
-      setArticles(newsResponse.articles);
-    };
-    fetchNews();
-  }, []);
 
   if (isEmpty(articles)) {
     return (
@@ -55,7 +38,7 @@ const NewsContainer = () => {
       </section>
       <div className="my-6 flex w-full justify-end">
         <Pagination
-          count={TOTAL_RESULTS}
+          count={totalResults}
           pageNo={DEFAULT_PAGE_INDEX}
           pageSize={DEFAULT_PAGE_SIZE}
         />

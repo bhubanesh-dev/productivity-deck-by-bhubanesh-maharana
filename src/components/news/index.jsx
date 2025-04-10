@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { PageLoader } from "components/commons";
-import { useFetchNews } from "hooks/reactQuery/useNewsApi";
+import { useSourceNews } from "hooks/reactQuery/useNewsApi";
 import useQueryParams from "hooks/useQueryParams";
 import { filterNonNull } from "neetocist";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
@@ -31,7 +31,7 @@ const News = () => {
     history.replace(buildUrl(routes.news, filterNonNull({ sources })));
   };
 
-  const { data = {}, isLoading, isFetching } = useFetchNews(newsParams);
+  const { data = {}, isLoading, isFetching } = useSourceNews(newsParams);
 
   const { articles = [], totalResults = 0 } = data;
 

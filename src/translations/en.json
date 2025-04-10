@@ -27,6 +27,12 @@
   "news": {
     "heading": "News mode",
     "noNewsFound": "No news is available in this feed.",
-    "searchArticle": "Search articles"
+    "searchArticle": "Search articles",
+    "knowMore": "know more"
+  },
+  "error": {
+    "noInternetConnection": "No internet connection",
+    "networkError": "Network error",
+    "somethingWentWrong": "Something went wrong."
   }
 }

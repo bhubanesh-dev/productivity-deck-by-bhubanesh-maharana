@@ -2,18 +2,13 @@ import { NoData, Pagination } from "neetoui";
 import { isEmpty } from "ramda";
 import { useTranslation } from "react-i18next";
 
-import {
-  DEFAULT_PAGE_INDEX,
-  DEFAULT_PAGE_SIZE,
-  NEWS_LIST,
-  TOTAL_RESULTS,
-} from "./Constants";
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "./Constants";
 import NewsItems from "./Items";
 
-const NewsContainer = () => {
+const NewsContainer = ({ articles, totalResults }) => {
   const { t } = useTranslation();
 
-  if (isEmpty(NEWS_LIST)) {
+  if (isEmpty(articles)) {
     return (
       <NoData
         className="flex h-screen w-full items-center justify-center"
@@ -25,7 +20,7 @@ const NewsContainer = () => {
   return (
     <>
       <section className="news-container my-4 w-full overflow-y-scroll">
-        {NEWS_LIST.map(
+        {articles.map(
           ({ title, description, publishedAt, urlToImage, url, author }) => (
             <NewsItems
               key={title}
@@ -43,7 +38,7 @@ const NewsContainer = () => {
       </section>
       <div className="my-6 flex w-full justify-end">
         <Pagination
-          count={TOTAL_RESULTS}
+          count={totalResults}
           pageNo={DEFAULT_PAGE_INDEX}
           pageSize={DEFAULT_PAGE_SIZE}
         />

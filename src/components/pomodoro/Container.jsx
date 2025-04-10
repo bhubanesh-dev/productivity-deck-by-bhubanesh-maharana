@@ -4,10 +4,10 @@ import { Button } from "neetoui";
 import { FaPlay, FaPause, FaStop } from "react-icons/fa";
 
 import { TIMER } from "./constants";
-import { useCountdownTimer } from "./hooks/useCountdownTimer";
 import TimerType from "./TimerType";
 
 import pomodoroAlarm from "../../assets/pomodoroAlarm.mp3";
+import { useCountdownTimer } from "../../hooks/useCountdownTimer";
 
 const Container = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);

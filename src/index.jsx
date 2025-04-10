@@ -1,7 +1,9 @@
 import React from "react";
 
+import initializeAxios from "apis/axios";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import "./common/i18n";
 //i18n should load before App initialization. Hence, disabling import/order rule.
@@ -10,9 +12,12 @@ import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+initializeAxios();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <ToastContainer />
     <BrowserRouter>
       <App />
     </BrowserRouter>

@@ -42,6 +42,7 @@ export const useCountdownTimer = (duration, onComplete, audioReference) => {
       onComplete();
       playAudio();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
   const toggle = () => (isRunning ? pause() : start());

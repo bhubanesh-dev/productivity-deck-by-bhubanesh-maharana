@@ -2,18 +2,15 @@ import { useState } from "react";
 
 import { MenuHorizontal } from "neetoicons";
 import { Button, Modal, Select, Typography, Dropdown } from "neetoui";
-import { find } from "ramda";
 import { useTranslation } from "react-i18next";
 
-import { SOURCE_LIST } from "../Constants";
+import { DEFAULT_SOURCE, SOURCE_LIST } from "../Constants";
 
-const SourcesSelector = ({ updateQueryParams, topHeadlinesSource }) => {
+const SourcesSelector = ({ updateQueryParamsTopHeadlines }) => {
   const [showSourcesSelectorModal, setShowSourcesSelectorModal] =
     useState(false);
 
-  const [selectedSource, setSelectedSource] = useState(
-    find(source => source.value === topHeadlinesSource, SOURCE_LIST)
-  );
+  const [selectedSource, setSelectedSource] = useState(DEFAULT_SOURCE);
 
   const {
     Menu,
@@ -25,8 +22,7 @@ const SourcesSelector = ({ updateQueryParams, topHeadlinesSource }) => {
   const { t } = useTranslation();
 
   const handleSourceChange = () => {
-    console.log(selectedSource);
-    updateQueryParams({ source: selectedSource?.value }, true);
+    updateQueryParamsTopHeadlines({ source: selectedSource?.value });
     setShowSourcesSelectorModal(false);
   };
 

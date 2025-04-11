@@ -16,7 +16,7 @@ import {
 } from "./Constants";
 import NewsContainer from "./Container";
 import Header from "./Header";
-import { areParamsEmpty } from "./utils/checkParamsEmpty";
+import { areParamsEmpty } from "./utils";
 
 const News = () => {
   const queryParams = useQueryParams();

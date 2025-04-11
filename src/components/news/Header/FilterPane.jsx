@@ -8,6 +8,10 @@ import { Input, Select, Form as NeetoUIForm } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 
 import { FILTERS_FORM_VALIDATION_SCHEMA, SOURCE_LIST } from "../Constants";
+import {
+  formatSourcesArrayOfObjectsIntoString,
+  formatSourcesStringToArrayOfObjects,
+} from "../utils";
 
 const FilterPane = ({ everythingQuery, updateQueryParams }) => {
   const [showFilterPane, setShowFilterPane] = useState(false);
@@ -17,23 +21,16 @@ const FilterPane = ({ everythingQuery, updateQueryParams }) => {
 
   const INITIAL_VALUES = {
     phrase: everythingQuery.phrase || "",
-    sources: null,
-    dateRange: [null, null],
+    sources: formatSourcesStringToArrayOfObjects(everythingQuery.sources || ""),
+    dateRange: [everythingQuery.from, everythingQuery.to] || [null, null],
   };
 
   const handleSubmit = ({ phrase, sources, dateRange }) => {
-    const sourceValues = sources?.map(source => source.value).join(",") || "";
+    const sourceValues = formatSourcesArrayOfObjectsIntoString(sources) || "";
     const [from, to] = dateRange || [];
 
     const formattedFrom = from ? dayjs(from).format("YYYY-MM-DD") : null;
     const formattedTo = to ? dayjs(to).format("YYYY-MM-DD") : null;
-
-    console.log({
-      phrase,
-      sources: sourceValues,
-      from: formattedFrom,
-      to: formattedTo,
-    });
 
     updateQueryParams({
       phrase,

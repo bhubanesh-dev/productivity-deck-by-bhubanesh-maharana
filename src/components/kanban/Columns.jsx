@@ -2,10 +2,12 @@ import { useRef, useEffect, useState } from "react";
 
 import { Droppable } from "@hello-pangea/dnd";
 import classNames from "classnames";
-import { Check, Plus } from "neetoicons";
-import { Button, Input, NoData, Typography } from "neetoui";
+import useKeyboardEnter from "hooks/usekeyboardEnter";
+import { Close, Plus } from "neetoicons";
+import { Button, Input, NoData, Toastr, Typography } from "neetoui";
 import { isEmpty } from "ramda";
 import { Trans, useTranslation } from "react-i18next";
+import { AiOutlineEnter } from "react-icons/ai";
 
 import useKanbanTasksStore from "./store/useKanbanTasksStore";
 import Tasks from "./Tasks";
@@ -31,7 +33,9 @@ const Columns = ({ taskColumnName, tasks }) => {
 
   const handleInputSubmit = () => {
     if (isEmpty(taskInput)) {
-      setShouldShowInput(false);
+      Toastr.info(t("kanban.noInputToastMessage"), {
+        autoClose: 1500,
+      });
 
       return;
     }
@@ -41,8 +45,10 @@ const Columns = ({ taskColumnName, tasks }) => {
     setShouldShowInput(false);
   };
 
+  useKeyboardEnter(inputRef, handleInputSubmit);
+
   return (
-    <div className="kanban-column-height flex w-96  flex-col gap-6 rounded-md border-2 border-gray-400 bg-gray-100 px-8 pb-2 pt-8">
+    <div className="kanban-column-height flex w-80  flex-col gap-6 rounded-md border-2 border-gray-400 bg-gray-100 px-8 pb-2 pt-8">
       <Typography style="h2" weight="bold">
         <Trans i18nKey={`kanban.${taskColumnName}`} />
       </Typography>
@@ -51,10 +57,9 @@ const Columns = ({ taskColumnName, tasks }) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={classNames(
-              "w-72 flex-grow rounded ",
-              taskColumnName === "done" && "line-through"
-            )}
+            className={classNames("w-72 flex-grow rounded ", {
+              "line-through": taskColumnName === "done",
+            })}
           >
             {isEmpty(tasks) ? (
               <NoData title={t("kanban.noTasksPresent")} />
@@ -67,14 +72,18 @@ const Columns = ({ taskColumnName, tasks }) => {
             {shouldShowInput && (
               <div className="flex w-60 flex-row gap-2">
                 <Input
-                  placeholder="Enter task name"
+                  placeholder={t("kanban.inputPlaceholder")}
                   ref={inputRef}
                   size="large"
                   type="text"
                   value={taskInput}
-                  onChange={e => setTaskInput(e.target.value)}
+                  onChange={({ target: { value } }) => setTaskInput(value)}
                 />
-                <Button icon={Check} style="text" onClick={handleInputSubmit} />
+                <Button
+                  icon={isEmpty(taskInput) ? Close : AiOutlineEnter}
+                  style="tertiary"
+                  onClick={handleInputSubmit}
+                />
               </div>
             )}
           </div>

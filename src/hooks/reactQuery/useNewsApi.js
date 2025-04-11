@@ -7,7 +7,6 @@ export const useSourceNews = params =>
   useQuery({
     queryKey: [QUERY_KEYS.TOP_HEADLINES, params],
     queryFn: () => newsApi.topHeadlines(params),
-    keepPreviousData: true,
     enabled: !!params.sources,
   });
 

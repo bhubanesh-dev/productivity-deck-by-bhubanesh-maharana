@@ -4,7 +4,7 @@ import { Droppable } from "@hello-pangea/dnd";
 import classNames from "classnames";
 import useKeyboardEnter from "hooks/usekeyboardEnter";
 import { Close, Plus } from "neetoicons";
-import { Button, Input, NoData, Toastr, Typography } from "neetoui";
+import { Button, Input, NoData, Typography } from "neetoui";
 import { isEmpty } from "ramda";
 import { Trans, useTranslation } from "react-i18next";
 import { AiOutlineEnter } from "react-icons/ai";
@@ -33,9 +33,7 @@ const Columns = ({ taskColumnName, tasks }) => {
 
   const handleInputSubmit = () => {
     if (isEmpty(taskInput)) {
-      Toastr.info(t("kanban.noInputToastMessage"), {
-        autoClose: 1500,
-      });
+      setShouldShowInput(false);
 
       return;
     }

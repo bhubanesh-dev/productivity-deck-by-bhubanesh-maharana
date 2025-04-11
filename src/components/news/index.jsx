@@ -4,146 +4,107 @@ import { PageLoader } from "components/commons";
 import { useFilterNews, useSourceNews } from "hooks/reactQuery/useNewsApi";
 import useQueryParams from "hooks/useQueryParams";
 import { filterNonNull } from "neetocist";
-import { isEmpty, mergeLeft } from "ramda";
+import { mergeLeft } from "ramda";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { routes } from "routes";
 import { buildUrl } from "utils/url";
 
-import {
-  DEFAULT_PAGE_INDEX,
-  DEFAULT_PAGE_SIZE,
-  DEFAULT_SOURCE,
-} from "./Constants";
+import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "./Constants";
 import NewsContainer from "./Container";
 import Header from "./Header";
 import ShowAppliedFilters from "./ShowAppliedFilters";
-import { areParamsEmpty } from "./utils";
 
 const News = () => {
-  const queryParams = useQueryParams();
   const history = useHistory();
+  const queryParams = useQueryParams();
 
   const {
     source = "",
-    sources = "",
     phrase = "",
-    from = null,
-    to = null,
     page,
     pageSize,
+    sources = "",
+    from,
+    to,
   } = queryParams;
 
-  const [isTopHeadlinesFetching, setIsTopHeadlinesFetching] = useState(
-    !isEmpty(source)
-  );
-
-  const [topHeadlinesSource, setTopHeadlinesSource] = useState(
-    source || DEFAULT_SOURCE.value
-  );
-
+  const [topHeadlinesSource, setTopHeadlinesSource] = useState(source);
   const [everythingQuery, setEverythingQuery] = useState({
     phrase,
+    page,
+    pageSize,
     sources,
     from,
     to,
   });
 
-  const topHeadlinesNewsParams = { sources: topHeadlinesSource };
+  const isFilterMode = phrase !== "" || sources !== "";
 
-  const everythingQueryNewsParams = {
-    sources,
-    q: phrase,
-    page: page || DEFAULT_PAGE_INDEX,
-    pageSize: pageSize || DEFAULT_PAGE_SIZE,
+  const topHeadlinesParams = {
+    sources: topHeadlinesSource,
+  };
+
+  const everythingParams = {
+    q: everythingQuery.phrase,
+    page: Number(page) || DEFAULT_PAGE_INDEX,
+    pageSize: Number(pageSize) || DEFAULT_PAGE_SIZE,
+    sources: everythingQuery.sources,
     from: everythingQuery.from,
     to: everythingQuery.to,
   };
+  const sourceNews = useSourceNews(topHeadlinesParams);
+  const filterNews = useFilterNews(everythingParams);
 
-  const updateQueryParams = (queries, isFromSourceChange = false) => {
-    const {
-      source = "",
-      sources = "",
-      phrase = "",
-      from = "",
-      to = "",
-    } = queries;
+  const { data, isLoading, isFetching } = isFilterMode
+    ? filterNews
+    : sourceNews;
+  const { articles = [], totalResults = 0 } = data || {};
 
-    const allEmpty = areParamsEmpty(queries);
+  const updateQueryParamsTopHeadlines = ({ source }) => {
+    setTopHeadlinesSource(source);
+    history.replace(buildUrl(routes.news, filterNonNull({ source })));
+  };
 
-    if (allEmpty) {
-      const defaultSource = DEFAULT_SOURCE.value;
-      setTopHeadlinesSource(defaultSource);
-      setEverythingQuery(previous => ({
-        ...previous,
-        phrase: "",
-        sources: "",
-        from: "",
-        to: "",
-      }));
-      setIsTopHeadlinesFetching(true);
+  const updateQueryParamsEverything = ({
+    sources = "",
+    phrase = "",
+    from = "",
+    to = "",
+  }) => {
+    setEverythingQuery(prev => ({
+      ...prev,
+      sources,
+      phrase,
+      from,
+      to,
+    }));
 
-      history.replace(
-        buildUrl(routes.news, filterNonNull({ source: defaultSource }))
-      );
-
-      return;
-    }
-
-    if (isFromSourceChange) {
-      setTopHeadlinesSource(source);
-      setIsTopHeadlinesFetching(true);
-      history.replace(buildUrl(routes.news, filterNonNull({ source })));
-
-      return;
-    }
-
-    const updatedParams = {
-      phrase: isEmpty(phrase) ? null : phrase,
-      sources: isEmpty(sources) ? null : sources,
-      from: isEmpty(from) ? null : from,
-      to: isEmpty(to) ? null : to,
-      source: null,
-      pageSize:
-        isEmpty(phrase) && isEmpty(sources) && isEmpty(from)
-          ? null
-          : DEFAULT_PAGE_SIZE,
-      page:
-        isEmpty(phrase) && isEmpty(sources) && isEmpty(from)
-          ? null
-          : DEFAULT_PAGE_INDEX,
+    const params = {
+      sources: sources || null,
+      phrase: phrase || null,
+      from: from || null,
+      to: to || null,
     };
-
-    const filteredParams = filterNonNull(updatedParams);
-    setEverythingQuery(prev => ({ ...prev, ...updatedParams }));
-    setIsTopHeadlinesFetching(false);
-    history.replace(buildUrl(routes.news, filteredParams));
+    history.replace(buildUrl(routes.news, filterNonNull(params)));
   };
 
   const handlePageNavigation = page => {
     history.replace(buildUrl(routes.news, mergeLeft({ page }, queryParams)));
   };
 
-  const sourceResponse = useSourceNews(
-    topHeadlinesNewsParams,
-    isTopHeadlinesFetching
-  );
-
-  const filterResponse = useFilterNews(
-    everythingQueryNewsParams,
-    isTopHeadlinesFetching
-  );
-
-  const { data, isFetching, isLoading } = isTopHeadlinesFetching
-    ? sourceResponse
-    : filterResponse;
-  const { articles = [], totalResults = 0 } = data || {};
-
   return (
-    <main className="container-width px-16 py-8">
-      <Header {...{ topHeadlinesSource, everythingQuery, updateQueryParams }} />
-      {!isTopHeadlinesFetching && (
+    <main className="container-width overflow-hidden px-16 py-8">
+      <Header
+        {...{
+          topHeadlinesSource,
+          updateQueryParamsTopHeadlines,
+          everythingQuery,
+          updateQueryParamsEverything,
+        }}
+      />
+      {isFilterMode && (
         <ShowAppliedFilters
-          {...{ everythingQuery, updateQueryParams, totalResults }}
+          {...{ totalResults, everythingQuery, updateQueryParamsEverything }}
         />
       )}
       {isLoading || isFetching ? (

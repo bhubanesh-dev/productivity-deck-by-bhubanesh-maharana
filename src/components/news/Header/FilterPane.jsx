@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
 import dayjs from "dayjs";
-import { Field } from "formik";
 import { Filter as FilterIcon } from "neetoicons";
-import { Button, DatePicker, Pane, Typography } from "neetoui";
+import { Button, Pane, Typography } from "neetoui";
 import { Input, Select, Form as NeetoUIForm } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
+
+import DatePickerWithFormik from "./DatePickerWithFormik";
 
 import { FILTERS_FORM_VALIDATION_SCHEMA, SOURCE_LIST } from "../Constants";
 import {
@@ -13,7 +14,7 @@ import {
   formatSourcesStringToArrayOfObjects,
 } from "../utils";
 
-const FilterPane = ({ everythingQuery, updateQueryParams }) => {
+const FilterPane = ({ everythingQuery, updateQueryParamsEverything }) => {
   const [showFilterPane, setShowFilterPane] = useState(false);
 
   const { t } = useTranslation();
@@ -32,7 +33,7 @@ const FilterPane = ({ everythingQuery, updateQueryParams }) => {
     const formattedFrom = from ? dayjs(from).format("YYYY-MM-DD") : null;
     const formattedTo = to ? dayjs(to).format("YYYY-MM-DD") : null;
 
-    updateQueryParams({
+    updateQueryParamsEverything({
       phrase,
       sources: sourceValues,
       from: formattedFrom,
@@ -83,21 +84,7 @@ const FilterPane = ({ everythingQuery, updateQueryParams }) => {
                 portalProps={{ className: "select-menu-list" }}
                 size="large"
               />
-              <Field name="dateRange">
-                {({ field, form }) => (
-                  <DatePicker
-                    {...field}
-                    allowClear
-                    dateFormat="DD/MM/YYYY"
-                    label={t("news.filters.date")}
-                    maxDate={dayjs()}
-                    picker="date"
-                    type="range"
-                    value={field.value}
-                    onChange={value => form.setFieldValue("dateRange", value)}
-                  />
-                )}
-              </Field>
+              <DatePickerWithFormik />
             </div>
           </Body>
           <Footer className="flex items-center justify-start space-x-2">

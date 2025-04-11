@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import useFuncDebounce from "hooks/useFuncDebounce";
 import { Search } from "neetoicons";
@@ -9,15 +9,21 @@ import FilterPane from "./FilterPane";
 import SourcesSelector from "./SourcesSelector";
 
 const Header = ({
-  everythingQuery,
-  updateQueryParams,
   topHeadlinesSource,
+  updateQueryParamsTopHeadlines,
+  everythingQuery,
+  updateQueryParamsEverything,
   t,
 }) => {
   const [input, setInput] = useState(everythingQuery.phrase);
+
   const debouncedUpdateQueryParams = useFuncDebounce(value =>
-    updateQueryParams({ phrase: value })
+    updateQueryParamsEverything({ phrase: value })
   );
+
+  useEffect(() => {
+    setInput(everythingQuery.phrase);
+  }, [everythingQuery.phrase]);
 
   return (
     <header className=" flex flex-wrap items-center justify-between gap-4 ">
@@ -25,8 +31,13 @@ const Header = ({
         <Typography style="h1" weight="bold">
           {t("news.heading")}
         </Typography>
-        <SourcesSelector {...{ topHeadlinesSource, updateQueryParams }} />
-        <FilterPane {...{ everythingQuery, updateQueryParams }} />
+        <SourcesSelector
+          {...{
+            topHeadlinesSource,
+            updateQueryParamsTopHeadlines,
+          }}
+        />
+        <FilterPane {...{ everythingQuery, updateQueryParamsEverything }} />
       </div>
       <div className="w-56">
         <Input

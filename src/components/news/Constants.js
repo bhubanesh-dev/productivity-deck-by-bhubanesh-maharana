@@ -17,16 +17,12 @@ export const SOURCE_LIST = [
 export const DEFAULT_SOURCE = SOURCE_LIST[0];
 
 export const FILTERS_FORM_VALIDATION_SCHEMA = Yup.object().shape({
-  phrase: Yup.string(), // search input (optional string)
+  phrase: Yup.string(),
   sources: Yup.array().of(
-    // Select input with multiple options
     Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string().required(),
     })
   ),
-  dateRange: Yup.array()
-    .of(Yup.date().nullable())
-    .length(2) // assuming it's a [startDate, endDate] range
-    .nullable(),
+  dateRange: Yup.array().of(Yup.date().nullable()).length(2).nullable(),
 });

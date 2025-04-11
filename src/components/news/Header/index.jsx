@@ -14,7 +14,7 @@ const Header = ({
   topHeadlinesSource,
   t,
 }) => {
-  const [input, setInput] = useState(everythingQuery?.phrase);
+  const [input, setInput] = useState(everythingQuery.phrase);
   const debouncedUpdateQueryParams = useFuncDebounce(value =>
     updateQueryParams({ phrase: value })
   );

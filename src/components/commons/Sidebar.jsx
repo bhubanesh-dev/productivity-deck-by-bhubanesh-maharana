@@ -8,7 +8,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <aside className="flex w-16 flex-col items-center space-y-4 py-8">
+    <aside className="flex w-16 flex-col items-center space-y-4 border-r-2 border-gray-200 py-8">
       <MenuLayout className="mb-4 rounded-md  p-1 text-black" size={32} />
       {NAVIGATION_ROUTES.map(({ path, icon: Icon }) => (
         <Link

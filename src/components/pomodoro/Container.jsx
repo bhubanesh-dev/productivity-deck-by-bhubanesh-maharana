@@ -28,7 +28,7 @@ const Container = () => {
 
   return (
     <div className="flex h-full items-center justify-center">
-      <section className="rounded-lg border-2 border-gray-400 p-6">
+      <section className="rounded-lg border-2 border-gray-400 p-6 shadow-md">
         <TimerType
           selectedTimer={selectedTimer}
           setSelectedTimer={timer => {

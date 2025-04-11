@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useFuncDebounce from "hooks/useFuncDebounce";
 import { Search } from "neetoicons";
 import { Input, Typography } from "neetoui";
-import { withT } from "utils/withT";
+import { useTranslation } from "react-i18next";
 
 import FilterPane from "./FilterPane";
 import SourcesSelector from "./SourcesSelector";
@@ -13,9 +13,10 @@ const Header = ({
   updateQueryParamsTopHeadlines,
   everythingQuery,
   updateQueryParamsEverything,
-  t,
 }) => {
   const [input, setInput] = useState(everythingQuery.phrase);
+
+  const { t } = useTranslation();
 
   const debouncedUpdateQueryParams = useFuncDebounce(value =>
     updateQueryParamsEverything({ phrase: value })
@@ -54,4 +55,4 @@ const Header = ({
   );
 };
 
-export default withT(Header);
+export default Header;

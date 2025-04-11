@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const DEFAULT_PAGE_INDEX = 1;
-export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_PAGE_SIZE = 30;
 
 export const SOURCE_LIST = [
   { value: "bbc-news", label: "BBC News" },

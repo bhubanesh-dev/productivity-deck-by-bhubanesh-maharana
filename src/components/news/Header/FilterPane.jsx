@@ -9,14 +9,14 @@ import { useTranslation } from "react-i18next";
 
 import { FILTERS_FORM_VALIDATION_SCHEMA, SOURCE_LIST } from "../Constants";
 
-const FilterPane = ({ queryFilter }) => {
+const FilterPane = ({ everythingQuery, updateQueryParams }) => {
   const [showFilterPane, setShowFilterPane] = useState(false);
 
   const { t } = useTranslation();
   const { Header, Body, Footer } = Pane;
 
   const INITIAL_VALUES = {
-    phrase: queryFilter.phrase || "",
+    phrase: everythingQuery.phrase || "",
     sources: null,
     dateRange: [null, null],
   };
@@ -33,7 +33,13 @@ const FilterPane = ({ queryFilter }) => {
       sources: sourceValues,
       from: formattedFrom,
       to: formattedTo,
-      dateRange,
+    });
+
+    updateQueryParams({
+      phrase,
+      sources: sourceValues,
+      from: formattedFrom,
+      to: formattedTo,
     });
 
     setShowFilterPane(false);

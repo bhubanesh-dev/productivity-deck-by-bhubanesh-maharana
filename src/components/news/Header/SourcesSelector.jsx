@@ -7,12 +7,12 @@ import { useTranslation } from "react-i18next";
 
 import { SOURCE_LIST } from "../Constants";
 
-const SourcesSelector = ({ sourcesFilter, updateQueryParams }) => {
+const SourcesSelector = ({ updateQueryParams, topHeadlinesSource }) => {
   const [showSourcesSelectorModal, setShowSourcesSelectorModal] =
     useState(false);
 
   const [selectedSource, setSelectedSource] = useState(
-    find(source => source.value === sourcesFilter, SOURCE_LIST)
+    find(source => source.value === topHeadlinesSource, SOURCE_LIST)
   );
 
   const {
@@ -26,7 +26,7 @@ const SourcesSelector = ({ sourcesFilter, updateQueryParams }) => {
 
   const handleSourceChange = () => {
     console.log(selectedSource);
-    updateQueryParams({ sources: selectedSource?.value });
+    updateQueryParams({ source: selectedSource?.value }, true);
     setShowSourcesSelectorModal(false);
   };
 

@@ -5,7 +5,12 @@ import { useTranslation } from "react-i18next";
 import { DEFAULT_PAGE_INDEX, DEFAULT_PAGE_SIZE } from "./Constants";
 import NewsItems from "./Items";
 
-const NewsContainer = ({ articles, totalResults }) => {
+const NewsContainer = ({
+  articles,
+  totalResults,
+  handlePageNavigation,
+  page,
+}) => {
   const { t } = useTranslation();
 
   if (isEmpty(articles)) {
@@ -39,7 +44,8 @@ const NewsContainer = ({ articles, totalResults }) => {
       <div className="my-6 flex w-full justify-end">
         <Pagination
           count={totalResults}
-          pageNo={DEFAULT_PAGE_INDEX}
+          navigate={handlePageNavigation}
+          pageNo={Number(page) || DEFAULT_PAGE_INDEX}
           pageSize={DEFAULT_PAGE_SIZE}
         />
       </div>

@@ -30,7 +30,15 @@
     "searchArticle": "Search articles",
     "knowMore": "know more",
     "changeNewsSource": "Change news source",
-    "newsSource": "News source"
+    "newsSource": "News source",
+    "filters": {
+      "heading": "Apply filter",
+      "search": "Keywords and phrases",
+      "searchPlaceHolder": "Search keywords",
+      "sources": "Apply sources",
+      "SourcesPlaceholder": "Select sources",
+      "date": "Apply date filter"
+    }
   },
   "error": {
     "noInternetConnection": "No internet connection",
@@ -39,6 +47,7 @@
   },
   "buttonLabel": {
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "apply": "Apply"
   }
 }

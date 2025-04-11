@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   remove,
   insert,
@@ -64,7 +65,7 @@ const useKanbanTasksStore = create(
       addNewTasks: (taskColumnName, taskInput) => {
         const tasks = get().tasks;
         const newTask = {
-          id: Date.now(),
+          id: dayjs().format(),
           taskName: taskInput,
         };
 

@@ -1,6 +1,8 @@
 import { Button, Typography } from "neetoui";
 import { withT } from "utils/withT";
 
+import { FALLBACK_IMAGE } from "./Constants";
+
 const NewsItems = ({
   title,
   description,
@@ -36,6 +38,7 @@ const NewsItems = ({
           alt={title}
           className="h-48 w-full rounded-lg object-cover shadow-sm"
           src={urlToImage}
+          onError={event => (event.target.src = FALLBACK_IMAGE)}
         />
       </div>
     )}

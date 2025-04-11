@@ -2,8 +2,9 @@ import { useRef, useEffect, useState } from "react";
 
 import { Droppable } from "@hello-pangea/dnd";
 import classNames from "classnames";
+import useKeyboardEnter from "hooks/usekeyboardEnter";
 import { Close, Plus } from "neetoicons";
-import { Button, Input, NoData, Typography } from "neetoui";
+import { Button, Input, NoData, Toastr, Typography } from "neetoui";
 import { isEmpty } from "ramda";
 import { Trans, useTranslation } from "react-i18next";
 import { AiOutlineEnter } from "react-icons/ai";
@@ -32,7 +33,9 @@ const Columns = ({ taskColumnName, tasks }) => {
 
   const handleInputSubmit = () => {
     if (isEmpty(taskInput)) {
-      setShouldShowInput(false);
+      Toastr.info(t("kanban.noInputToastMessage"), {
+        autoClose: 1500,
+      });
 
       return;
     }
@@ -41,6 +44,8 @@ const Columns = ({ taskColumnName, tasks }) => {
     setTaskInput("");
     setShouldShowInput(false);
   };
+
+  useKeyboardEnter(inputRef, handleInputSubmit);
 
   return (
     <div className="kanban-column-height flex w-80  flex-col gap-6 rounded-md border-2 border-gray-400 bg-gray-100 px-8 pb-2 pt-8">

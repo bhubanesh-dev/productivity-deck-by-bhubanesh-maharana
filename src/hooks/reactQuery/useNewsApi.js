@@ -14,6 +14,5 @@ export const useFilterNews = params =>
   useQuery({
     queryKey: [QUERY_KEYS.EVERYTHING, params],
     queryFn: () => newsApi.everything(params),
-    keepPreviousData: true,
     enabled: !!params.q || !!params.sources,
   });

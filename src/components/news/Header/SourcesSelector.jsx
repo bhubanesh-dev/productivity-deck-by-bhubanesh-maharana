@@ -25,7 +25,6 @@ const SourcesSelector = ({ updateQueryParams, topHeadlinesSource }) => {
   const { t } = useTranslation();
 
   const handleSourceChange = () => {
-    console.log(selectedSource);
     updateQueryParams({ source: selectedSource?.value }, true);
     setShowSourcesSelectorModal(false);
   };

@@ -1,5 +1,8 @@
+import dayjs from "dayjs";
 import { Button, Typography } from "neetoui";
 import { withT } from "utils/withT";
+
+import { FALLBACK_IMAGE } from "./Constants";
 
 const NewsItems = ({
   title,
@@ -26,7 +29,7 @@ const NewsItems = ({
       </Typography>
       <div className="mt-2 text-sm text-gray-500">
         <Typography>
-          {publishedAt} {author && ` - ${author}`}
+          {dayjs(publishedAt).format("D MMMM YYYY")} {author && ` - ${author}`}
         </Typography>
       </div>
     </div>
@@ -36,6 +39,7 @@ const NewsItems = ({
           alt={title}
           className="h-48 w-full rounded-lg object-cover shadow-sm"
           src={urlToImage}
+          onError={event => (event.target.src = FALLBACK_IMAGE)}
         />
       </div>
     )}

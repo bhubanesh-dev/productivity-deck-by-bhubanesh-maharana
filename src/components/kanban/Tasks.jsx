@@ -13,6 +13,7 @@ const Task = ({ task: { id, taskName }, taskColumnName, index }) => {
     useState(false);
 
   const { deleteTasks } = useKanbanTasksStore.pick();
+
   const { t } = useTranslation();
 
   return (
@@ -24,17 +25,17 @@ const Task = ({ task: { id, taskName }, taskColumnName, index }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className={classNames(
-              " group my-2 flex w-80 flex-row items-center justify-between rounded bg-gray-50 p-2 shadow",
+              " group my-2 flex w-60 flex-row items-center justify-between rounded bg-gray-50 p-2 shadow",
               { "line-through": taskColumnName === "done" }
             )}
           >
-            <Typography className=" truncate" style="body1">
+            <Typography className="truncate" style="body1">
               {taskName}
             </Typography>
             <Button
               className="text-red-500  opacity-0 group-hover:opacity-100"
               icon={Delete}
-              style="text"
+              style="tertiary"
               onClick={() => setShouldShowDeleteTaskAlert(true)}
             />
           </div>

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { Button, Typography } from "neetoui";
 import { withT } from "utils/withT";
 
@@ -28,7 +29,7 @@ const NewsItems = ({
       </Typography>
       <div className="mt-2 text-sm text-gray-500">
         <Typography>
-          {publishedAt} {author && ` - ${author}`}
+          {dayjs(publishedAt).format("D MMMM YYYY")} {author && ` - ${author}`}
         </Typography>
       </div>
     </div>

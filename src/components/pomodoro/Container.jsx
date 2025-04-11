@@ -32,7 +32,9 @@ const Container = () => {
         <TimerType
           selectedTimer={selectedTimer}
           setSelectedTimer={timer => {
-            const index = TIMER.findIndex(t => t.type === timer.type);
+            const index = TIMER.findIndex(
+              timerObject => timerObject.type === timer.type
+            );
             setSelectedIndex(index);
           }}
         />

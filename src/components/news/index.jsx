@@ -16,12 +16,12 @@ import {
 } from "./Constants";
 import NewsContainer from "./Container";
 import Header from "./Header";
+import ShowAppliedFilters from "./ShowAppliedFilters";
 import { areParamsEmpty } from "./utils";
 
 const News = () => {
   const queryParams = useQueryParams();
   const history = useHistory();
-  const [isTopHeadlinesFetching, setIsTopHeadlinesFetching] = useState(true);
 
   const {
     source = "",
@@ -32,6 +32,10 @@ const News = () => {
     page,
     pageSize,
   } = queryParams;
+
+  const [isTopHeadlinesFetching, setIsTopHeadlinesFetching] = useState(
+    !isEmpty(source)
+  );
 
   const [topHeadlinesSource, setTopHeadlinesSource] = useState(
     source || DEFAULT_SOURCE.value
@@ -69,7 +73,13 @@ const News = () => {
     if (allEmpty) {
       const defaultSource = DEFAULT_SOURCE.value;
       setTopHeadlinesSource(defaultSource);
-      setEverythingQuery({ phrase: "", sources: "", from: "", to: "" });
+      setEverythingQuery(previous => ({
+        ...previous,
+        phrase: "",
+        sources: "",
+        from: "",
+        to: "",
+      }));
       setIsTopHeadlinesFetching(true);
 
       history.replace(
@@ -131,6 +141,11 @@ const News = () => {
   return (
     <main className="container-width px-16 py-8">
       <Header {...{ topHeadlinesSource, everythingQuery, updateQueryParams }} />
+      {!isTopHeadlinesFetching && (
+        <ShowAppliedFilters
+          {...{ everythingQuery, updateQueryParams, totalResults }}
+        />
+      )}
       {isLoading || isFetching ? (
         <PageLoader />
       ) : (

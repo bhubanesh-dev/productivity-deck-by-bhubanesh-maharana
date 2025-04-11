@@ -31,6 +31,7 @@
     "knowMore": "know more",
     "changeNewsSource": "Change news source",
     "newsSource": "News source",
+    "result": "results for",
     "filters": {
       "heading": "Apply filter",
       "search": "Keywords and phrases",
@@ -48,6 +49,7 @@
   "buttonLabel": {
     "save": "Save",
     "cancel": "Cancel",
-    "apply": "Apply"
+    "apply": "Apply",
+    "clearAll": "Clear all"
   }
 }

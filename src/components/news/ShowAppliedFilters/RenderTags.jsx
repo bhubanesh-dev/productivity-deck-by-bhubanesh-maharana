@@ -4,7 +4,7 @@ import { Tag } from "neetoui";
 
 const renderTag = (key, label, onClose) => (
   <Tag
-    className="px-2"
+    className="px-2 py-1 text-lg capitalize"
     key={key}
     label={label}
     size="large"

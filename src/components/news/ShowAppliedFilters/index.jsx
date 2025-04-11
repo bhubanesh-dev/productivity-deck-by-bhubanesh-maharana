@@ -13,6 +13,8 @@ import {
 } from "ramda";
 import { useTranslation } from "react-i18next";
 
+import { formatSources } from "../utils";
+
 const ShowAppliedFilters = ({
   totalResults,
   everythingQuery: query,
@@ -35,7 +37,7 @@ const ShowAppliedFilters = ({
     return count;
   };
 
-  const formatSources = sources?.split(",");
+  const formattedSources = formatSources(sources);
 
   const handleDeletePhrase = () => {
     if (getFilterCount === 1) {
@@ -103,7 +105,7 @@ const ShowAppliedFilters = ({
           onClose={() => handleDeletePhrase()}
         />
       )}
-      {formatSources?.filter(Boolean).map(source => (
+      {formattedSources?.filter(Boolean).map(source => (
         <Tag
           className="px-2"
           key={source}
@@ -117,7 +119,7 @@ const ShowAppliedFilters = ({
       {from && to && (
         <Tag
           className="px-2"
-          label={`${from}-${to}`}
+          label={`${from} : ${to}`}
           size="large"
           style="text"
           type="solid"

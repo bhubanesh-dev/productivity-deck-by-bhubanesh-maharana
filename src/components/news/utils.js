@@ -10,3 +10,10 @@ export const areParamsEmpty = params => values(params).every(isEmpty);
 
 export const formatSourcesArrayOfObjectsIntoString = sources =>
   sources?.map(source => source.value).join(",");
+
+export const formatSources = sources =>
+  sources
+    ?.split(",")
+    .map(source =>
+      source.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())
+    );

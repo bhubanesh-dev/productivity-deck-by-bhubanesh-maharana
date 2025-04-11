@@ -14,8 +14,8 @@ const Container = () => {
   const selectedTimer = TIMER[selectedIndex];
 
   const handleTimerComplete = () => {
-    const nextIndex = (selectedIndex + 1) % TIMER.length;
-    setSelectedIndex(nextIndex);
+    if (selectedIndex === 0) setSelectedIndex(selectedIndex + 1);
+    else setSelectedIndex(0);
   };
 
   const audioReference = useRef(null);

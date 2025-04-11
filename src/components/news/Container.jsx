@@ -24,7 +24,7 @@ const NewsContainer = ({
 
   return (
     <>
-      <section className="news-container my-4 w-full overflow-y-scroll">
+      <section className="news-container my-4 w-full overflow-y-scroll ">
         {articles.map(
           ({ title, description, publishedAt, urlToImage, url, author }) => (
             <NewsItems

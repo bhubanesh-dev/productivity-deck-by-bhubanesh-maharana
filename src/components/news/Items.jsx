@@ -10,7 +10,7 @@ const NewsItems = ({
   author,
   t,
 }) => (
-  <section className="l flex flex-col gap-24 border-b border-gray-200 px-32 py-8 md:flex-row md:items-start md:gap-60">
+  <section className="l flex flex-col gap-24 border-b border-gray-400 px-32 py-8 md:flex-row md:items-start md:gap-60">
     <div className="flex max-w-2xl flex-1 flex-col gap-2">
       <Typography style="h3" weight="bold">
         {title}

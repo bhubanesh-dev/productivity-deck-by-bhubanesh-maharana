@@ -55,9 +55,12 @@ const Columns = ({ taskColumnName, tasks }) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={classNames("w-72 flex-grow rounded ", {
-              "line-through": taskColumnName === "done",
-            })}
+            className={classNames(
+              "hide-scrollbar w-72 flex-grow overflow-y-scroll rounded ",
+              {
+                "line-through": taskColumnName === "done",
+              }
+            )}
           >
             {isEmpty(tasks) ? (
               <NoData title={t("kanban.noTasksPresent")} />

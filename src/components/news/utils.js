@@ -17,3 +17,9 @@ export const formatSources = sources =>
     .map(source =>
       source.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())
     );
+
+export const convertToSlug = input =>
+  input
+    ?.toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Tag, Typography } from "neetoui";
+import { Button, Typography } from "neetoui";
 import {
   dissoc,
   equals,
@@ -10,10 +10,13 @@ import {
   pipe,
   reject,
   split,
+  length,
 } from "ramda";
 import { useTranslation } from "react-i18next";
 
-import { formatSources } from "../utils";
+import RenderTags from "./RenderTags";
+
+import { convertToSlug, formatSources } from "../utils";
 
 const ShowAppliedFilters = ({
   totalResults,
@@ -31,7 +34,7 @@ const ShowAppliedFilters = ({
     if (query.from && query.to) count++;
 
     if (query.sources) {
-      count += pipe(split(","), reject(equals("")), length)(query?.sources);
+      count += pipe(split(","), reject(equals("")), length)(query.sources);
     }
 
     return count;
@@ -40,18 +43,17 @@ const ShowAppliedFilters = ({
   const formattedSources = formatSources(sources);
 
   const handleDeletePhrase = () => {
-    if (getFilterCount === 1) {
+    if (getFilterCount(query) === 1) {
       clearAllFilters();
 
       return;
     }
-
     const updatedQueryParams = dissoc("phrase", query);
     updateQueryParamsEverything({ ...updatedQueryParams });
   };
 
   const handleDeleteDate = () => {
-    if (getFilterCount === 1) {
+    if (getFilterCount(query) === 1) {
       clearAllFilters();
 
       return;
@@ -61,25 +63,26 @@ const ShowAppliedFilters = ({
   };
 
   const handleDeleteSource = source => {
+    const sourceSlug = convertToSlug(source);
+
     const updatedSourceList = pipe(
       split(","),
-      reject(equals(source)),
+      reject(equals(sourceSlug)),
       reject(equals(""))
     )(sources);
 
-    const isLastFilter =
-      getFilterCount === 1 ||
-      (isEmpty(updatedSourceList) && getFilterCount === 1);
+    const updatedSource = join(",", updatedSourceList);
+    const updatedQueryParams = updatedSource
+      ? { ...query, sources: updatedSource }
+      : dissoc("sources", query);
 
-    if (isLastFilter) {
+    if (getFilterCount(updatedQueryParams) === 0) {
       clearAllFilters();
 
       return;
     }
 
-    const updatedSource = join(",", updatedSourceList);
-    const updatedQueryParams = { ...query, sources: updatedSource };
-    updateQueryParamsEverything({ ...updatedQueryParams });
+    updateQueryParamsEverything(updatedQueryParams);
   };
 
   const clearAllFilters = () => {
@@ -96,34 +99,31 @@ const ShowAppliedFilters = ({
         {totalResults} {t("news.result")}
       </Typography>
       {phrase && (
-        <Tag
-          className="px-2"
-          label={phrase}
-          size="large"
-          style="text"
-          type="solid"
-          onClose={() => handleDeletePhrase()}
+        <RenderTags
+          {...{
+            keyProp: "phrase",
+            label: phrase,
+            onClose: handleDeletePhrase,
+          }}
         />
       )}
       {formattedSources?.filter(Boolean).map(source => (
-        <Tag
-          className="px-2"
+        <RenderTags
           key={source}
-          label={source}
-          size="large"
-          style="text"
-          type="solid"
-          onClose={() => handleDeleteSource(source)}
+          {...{
+            keyProp: source,
+            label: source,
+            onClose: () => handleDeleteSource(source),
+          }}
         />
       ))}
       {from && to && (
-        <Tag
-          className="px-2"
-          label={`${from} : ${to}`}
-          size="large"
-          style="text"
-          type="solid"
-          onClose={() => handleDeleteDate()}
+        <RenderTags
+          {...{
+            keyProp: "date-range",
+            label: `${from} : ${to}`,
+            onClose: handleDeleteDate,
+          }}
         />
       )}
       <Button

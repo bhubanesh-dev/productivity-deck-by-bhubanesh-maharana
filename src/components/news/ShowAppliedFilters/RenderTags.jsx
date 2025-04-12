@@ -2,10 +2,10 @@ import React from "react";
 
 import { Tag } from "neetoui";
 
-const renderTag = (key, label, onClose) => (
+const RenderTags = ({ keyProp, label, onClose }) => (
   <Tag
-    className="px-2 py-1 text-lg capitalize"
-    key={key}
+    className="px-2 py-1 text-sm capitalize"
+    key={keyProp}
     label={label}
     size="large"
     style="text"
@@ -14,4 +14,4 @@ const renderTag = (key, label, onClose) => (
   />
 );
 
-export default renderTag;
+export default RenderTags;
